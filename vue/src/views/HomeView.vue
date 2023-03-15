@@ -11,9 +11,9 @@
     </div>
     <el-table :data="tableData" stripe style="width: 100%;">
       <el-table-column prop="id" label="ID" sortable/>
-      <el-table-column prop="uername" label="用户名" />
+      <el-table-column prop="username" label="用户名" />
       <el-table-column prop="password" label="密码" />
-      <el-table-column prop="nickName" label="昵称" />
+      <el-table-column prop="nick_name" label="昵称" />
       <el-table-column prop="age" label="年龄" />
       <el-table-column prop="sex" label="性别" />
       <el-table-column prop="address" label="地址" />
@@ -97,10 +97,11 @@ export default {
   name: 'HomeView',
   data() {
     return {
-      dialogVisible: false,
       search: "",
-      total: 20,
+      psize: 5,
+      currentPage: 1,
       tableData: [],
+      dialogVisible: false,
       form: {}
     }
   },
@@ -110,16 +111,27 @@ export default {
       this.dialogVisible = true
     },
     addUser() { // 新增用户
-      request.post('/api/user/add', this.form)
-      .then(
-        res => {
-          // console.log(res)
-        }
-      )
-
+      request.post('/api/user/add', this.form).then(res => {})
       this.form = {}
       this.dialogVisible = false
+    },
+    loadData() { // 加载当前页数据
+      request.get('/api/user/all', {
+        params: {
+          "page": this.currentPage,
+          "size": this.psize,
+          "search": this.search
+        }
+      })
+      .then(
+        res => {
+          this.tableData = res.data.tableData
+        }
+      )
     }
+  },
+  beforeMount() { // 页面加载时获取数据
+    this.loadData()
   }
 }
 </script>

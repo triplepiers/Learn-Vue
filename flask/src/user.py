@@ -29,23 +29,24 @@ def add_user():
     })
 
 
-# 查询所有用户
+# 根据 nick_name 查找用户
 @user.route('/all', methods=['GET'])
 def get_all():
-    data = request.get_json()
-    page = data['page'] - 1
-    size = data['size']
+    page = int(request.values.get("page")) - 1
+    size = int(request.values.get("size"))
+    search = request.values.get("search")
 
     session = sessionmaker(bind=db)()
-    res = session.query(User).limit(size).offset(page*size).all()  # 手动分页查询
+    if len(search):
+        res = session.query(User).filter(User.nick_name.like("%"+search+"%")).limit(size).offset(page*size).all()  # 手动分页查询
+    else:
+        res = session.query(User).limit(size).offset(page*size).all()
     session.close()
 
     tableData = []
     for item in res:
-        # print(item.id)
         tableData.append(item.to_json())
-        # print()
-    # return "hello from the other side"
+
     return jsonify({
         "status": 500,
         "data": {
