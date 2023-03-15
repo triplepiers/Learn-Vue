@@ -10,10 +10,10 @@
       <el-button type="primary" style="margin-left:5px;">查询</el-button>
     </div>
     <el-table :data="tableData" stripe style="width: 100%;">
-      <el-table-column prop="date" label="Date" sortable />
-      <el-table-column prop="name" label="Name" />
-      <el-table-column prop="address" label="Address" />
-      <el-table-column fixed="right" label="Operations" width="120">
+      <el-table-column prop="date" label="时间" sortable />
+      <el-table-column prop="name" label="姓名" />
+      <el-table-column prop="address" label="地址" />
+      <el-table-column fixed="right" label="操作" width="120">
       <template #default>
         <el-button link type="primary" size="small" @click="handleClick"
           >查看</el-button
