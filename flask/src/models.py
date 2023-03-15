@@ -2,7 +2,6 @@ from sqlalchemy import Integer, Column, String
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
-# metadata = Base.metadata
 
 
 class User(Base):
@@ -16,16 +15,17 @@ class User(Base):
     sex = Column(String(255))
     address = Column(String(255))
 
-    # def __setattr__(self, key, value):
-    #     self.key = value
+    @staticmethod
+    def keys():
+        return ['id', 'username', 'password', 'nick_name', 'age', 'sex', 'address']
 
-    # def __init__(self):
-    #
-    #
-    # def __init__(self, uname, pwd, nname, age, sex, address):
-    #     self.uname = uname
-    #     self.pwd = pwd
-    #     self.nick_name = nname
-    #     self.age = age
-    #     self.sex = sex
-    #     self.address = address
+
+    def to_json(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'nick_name': self.nick_name,
+            'age': self.age,
+            'sex': self.sex,
+            'address': self.address
+        }
