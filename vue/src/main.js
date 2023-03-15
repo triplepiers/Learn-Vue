@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+// element-ui 全部引入
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 // 中文支持

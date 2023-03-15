@@ -1,0 +1,140 @@
+<template>
+  <div class="home">
+    <div class="options">
+      <el-button type="primary" @click="showAdd">新增</el-button>
+      <el-button type="primary">导入</el-button>
+      <el-button type="primary">导出</el-button>
+    </div>
+    <div class="search">
+      <el-input v-model="search" placeholder="请输入内容" style="width:20%;"></el-input>
+      <el-button type="primary" style="margin-left:5px;">查询</el-button>
+    </div>
+    <el-table :data="tableData" stripe style="width: 100%;">
+      <el-table-column prop="id" label="ID" sortable/>
+      <el-table-column prop="uername" label="用户名" />
+      <el-table-column prop="password" label="密码" />
+      <el-table-column prop="nickName" label="昵称" />
+      <el-table-column prop="age" label="年龄" />
+      <el-table-column prop="sex" label="性别" />
+      <el-table-column prop="address" label="地址" />
+      <el-table-column fixed="right" label="操作" width="120">
+      <template #default>
+        <el-button link type="primary" size="small" @click="handleClick"
+          >查看</el-button
+        >
+        <el-popconfirm title="确认要删除吗?">
+          <template #reference>
+            <el-button link type="primary" size="small">删除</el-button>
+          </template>
+        </el-popconfirm>
+      </template>
+    </el-table-column>
+    </el-table>
+    <div class="pages">
+      <el-pagination
+        v-model:current-page="currentPage4"
+        v-model:page-size="pageSize4"
+        :page-sizes="[5, 10, 20]"
+        :page-size="10"
+        :small="small"
+        :disabled="disabled"
+        :background="background"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      />
+    </div>
+    <!-- 新增用户弹窗 -->
+    <el-dialog
+      v-model="dialogVisible"
+      title="新增用户"
+      width="500px"
+      :before-close="handleClose"
+    >
+      <el-form v-model="form" label-width="120px" >
+        <el-form-item label="用户名" required>
+          <el-input v-model="form.username" style="width:80%"/>
+        </el-form-item>
+        <el-form-item label="昵称">
+          <el-input v-model="form.nickName" style="width:80%"/>
+        </el-form-item>
+        <el-form-item label="年龄">
+          <el-input v-model="form.age" style="width:80%"/>
+        </el-form-item>
+        <el-form-item label="性别">
+          <el-radio-group v-model="form.sex">
+            <el-radio label="男" />
+            <el-radio label="女" />
+            <el-radio label="未知" />
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="地址">
+          <el-input 
+           type="textarea"
+           v-model="form.address"
+           style="width:80%"
+          />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="dialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="addUser">
+            确认
+          </el-button>
+        </span>
+      </template>
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+// @ is an alias to /src
+import request from '@/utils/request'
+
+export default {
+  name: 'HomeView',
+  data() {
+    return {
+      dialogVisible: false,
+      search: "",
+      total: 20,
+      tableData: [],
+      form: {}
+    }
+  },
+  methods: {
+    showAdd() { // 显示新增用户弹窗
+      this.form = {} // 重置输入
+      this.dialogVisible = true
+    },
+    addUser() { // 新增用户
+      request.post('/api/user/add', this.form)
+      .then(
+        res => {
+          // console.log(res)
+        }
+      )
+
+      this.form = {}
+      this.dialogVisible = false
+    }
+  }
+}
+</script>
+
+<style scoped>
+.home {
+  width: 100%;
+  padding: 10px;
+}
+.home .options,
+.home .pages {
+  margin: 10px 0;
+}
+.home .search {
+  margin: 10px 0;
+  width: 100%;
+}
+</style>
