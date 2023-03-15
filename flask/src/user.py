@@ -37,19 +37,57 @@ def get_all():
     search = request.values.get("search")
 
     session = sessionmaker(bind=db)()
+
     if len(search):
         res = session.query(User).filter(User.nick_name.like("%"+search+"%")).limit(size).offset(page*size).all()  # 手动分页查询
+        tableData = []
+        for item in res:
+            tableData.append(item.to_json())
+        res = session.query(User).filter(User.nick_name.like("%"+search+"%")).all()
     else:
         res = session.query(User).limit(size).offset(page*size).all()
-    session.close()
+        tableData = []
+        for item in res:
+            tableData.append(item.to_json())
+        res = session.query(User).all()
 
-    tableData = []
-    for item in res:
-        tableData.append(item.to_json())
+    total = len(res)
+    print(total)
+
+    session.close()
 
     return jsonify({
         "status": 500,
         "data": {
+            "total": total,
             "tableData": tableData
         }
+    })
+
+
+# 更新数据
+@user.route('/update', methods=["PUT"])
+def update_info():
+    data = request.get_json()
+
+    session = sessionmaker(bind=db)()
+    session.query(User).filter(User.id == data['id']).update(data)
+    session.commit()
+    session.close()
+
+    return jsonify({
+        "status": 500
+    })
+
+
+# 删除用户
+@user.route('/delete/<id>', methods=['DELETE'])
+def del_user(id):
+    session = sessionmaker(bind=db)()
+    session.query(User).filter(User.id == id).delete()
+    session.commit()
+    session.close()
+
+    return jsonify({
+        "status": 500
     })
