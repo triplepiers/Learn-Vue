@@ -2,27 +2,34 @@
   <div id="aside">
     <el-menu
         style="min-height: calc(100vh - 50px);"
-        default-active="2"
+        default-active="user"
         class="el-menu-vertical-demo"
+        default-openeds="1"
     >
       <el-sub-menu index="1">
         <template #title>
-          <el-icon><location /></el-icon>
-          <span>Navigator One</span>
+          <el-icon><setting /></el-icon>
+          <span>系统管理</span>
         </template>
-          <el-menu-item index="1-1">item one</el-menu-item>
-          <el-menu-item index="1-2">item two</el-menu-item>
-          <el-menu-item index="1-3">item three</el-menu-item>
-          <el-menu-item index="1-4">item four</el-menu-item>
+          <el-menu-item index="user">用户管理</el-menu-item>
       </el-sub-menu>
+      <el-menu-item index="data">
+        <el-icon><icon-menu /></el-icon>
+        数据管理
+      </el-menu-item>
     </el-menu>
   </div>
 </template>
 
 <script>
+import { Setting, Menu as IconMenu } from '@element-plus/icons-vue'
 
 export default {
-    name: 'Aside'
+    name: 'Aside',
+    components: {
+      Setting,
+      IconMenu
+    }
 }
 </script>
 

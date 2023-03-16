@@ -24,6 +24,7 @@ class User(Base):
         return {
             'id': self.id,
             'username': self.username,
+            'password': self.password,
             'nick_name': self.nick_name,
             'age': self.age,
             'sex': self.sex,

@@ -52,7 +52,7 @@ def get_all():
         res = session.query(User).all()
 
     total = len(res)
-    print(total)
+    # print(total)
 
     session.close()
 
@@ -90,4 +90,46 @@ def del_user(id):
 
     return jsonify({
         "status": 500
+    })
+
+
+# 登录验证
+@user.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+
+    session = sessionmaker(bind=db)()
+    res = session.query(User).filter(User.username == data['username']).filter(User.password == data['password']).all()
+    session.commit()
+    session.close()
+
+    if len(res) > 0:
+        status = 500
+    else:
+        status = 501
+
+    return jsonify({
+        "status": status
+    })
+
+
+# 用户注册
+@user.route('/register', methods=['POST'])
+def reg():
+    data = request.get_json()
+    session = sessionmaker(bind=db)()
+
+    res = session.query(User).filter(User.username == data['username']).all()
+    if len(res) > 0:
+        status = 501
+    else:
+        status = 500
+        neo_usr = User(username=data['username'], password=data['password'])
+        session.add(neo_usr)
+        session.commit()
+
+    session.close()
+
+    return jsonify({
+        "status": status
     })
