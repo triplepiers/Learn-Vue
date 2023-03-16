@@ -2,7 +2,7 @@
   <div id="aside">
     <el-menu
         style="min-height: calc(100vh - 50px);"
-        default-active="user"
+        default-active="$route.path"
         router
         class="el-menu-vertical-demo"
     >

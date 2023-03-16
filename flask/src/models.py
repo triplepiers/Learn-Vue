@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from sqlalchemy import Integer, Column, String, DATETIME, DECIMAL
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -52,5 +54,5 @@ class Book(Base):
             'name': self.name,
             'price': self.price,
             'author': self.author,
-            'create_time': self.create_time
+            'create_time': str(self.create_time)[0:10] if self.create_time else self.create_time
         }

@@ -53,13 +53,16 @@
           <el-input v-model="form.name" style="width:80%"/>
         </el-form-item>
         <el-form-item label="价格">
-          <el-input v-model="form.price" style="width:80%"/>
+          <el-input-number v-model="form.price" :precision="2" :step="0.01" :max="1000" />
         </el-form-item>
         <el-form-item label="作者">
           <el-input v-model="form.author" style="width:80%"/>
         </el-form-item>
         <el-form-item label="创建时间">
-          <el-input v-model="form.create_time" style="width:80%"/>
+          <el-date-picker v-model="form.create_time" style="width:80%"
+           value-format="YYYY-MM-DD"
+          >
+          </el-date-picker>
         </el-form-item>
       </el-form>
       <template #footer>
