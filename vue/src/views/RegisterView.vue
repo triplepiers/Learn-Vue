@@ -83,7 +83,7 @@ export default {
                         this.form.check = ""
                         return
                     }
-                    request.post("/api/user/register", this.form)
+                    request.post("/user/register", this.form)
                     .then(
                         res => {
                             if(res.status == 500) {
@@ -91,6 +91,7 @@ export default {
                                     type: "success",
                                     message: "注册成功"
                                 })
+                                sessionStorage.setItem('user', JSON.stringify(res.data.user))
                                 this.form = {}
                                 this.$router.push('/')
                             } else {

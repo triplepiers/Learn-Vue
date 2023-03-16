@@ -92,7 +92,7 @@
 import request from '@/utils/request'
 
 export default {
-  name: 'HomeView',
+  name: 'UserView',
   data() {
     return {
       search: "",
@@ -111,7 +111,7 @@ export default {
     },
     save() { // 保存修改
     if(this.form.id) {
-      request.put('/api/user/update', this.form)
+      request.put('/user/update', this.form)
       .then(res => {
         if(res.status == 500) {
           this.$message({ // 成功提示弹窗
@@ -121,7 +121,7 @@ export default {
         }
       })
     } else { // 无 id - 新增用户
-      request.post('/api/user/add', this.form).then(res => {
+      request.post('/user/add', this.form).then(res => {
         if(res.status == 500) {
           this.$message({ // 成功提示弹窗
             type: "success",
@@ -135,7 +135,7 @@ export default {
       this.dialogVisible = false
     },
     loadData() { // 加载当前页数据
-      request.get('/api/user/all', {
+      request.get('/user/all', {
         params: {
           "page": this.currentPage,
           "size": this.psize,
@@ -164,7 +164,7 @@ export default {
       this.dialogVisible = false
     },
     handleDelete(id) { // 删除记录
-      request.delete('/api/user/delete/' + id)
+      request.delete('/user/delete/' + id)
       .then( res => {
         if(res.status == 500) {
           this.$message({ // 删除提示弹窗

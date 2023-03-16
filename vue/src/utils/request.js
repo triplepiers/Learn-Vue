@@ -1,7 +1,9 @@
 // 封装 axios 请求
 import axios from "axios"
+import router from "@/router";
 
 const request = axios.create({
+    baseURL: '/api',
     timeout: 5000
 })
 
@@ -11,7 +13,14 @@ const request = axios.create({
 request.interceptors.request.use(config => {
     config.headers['Content-Type'] = 'application/json;charset=utf-8';
   
- // config.headers['token'] = user.token;  // 设置请求头
+    // config.headers['token'] = user.token;  // 设置请求头
+
+    // 拦截 通过 SessionStorage 中是否存在 user 对象 判断是否已经登录
+    let userJson = sessionStorage.getItem('user')
+    if(!userJson) {
+        router.push('/login')
+    }
+
     return config
 }, error => {
     return Promise.reject(error)

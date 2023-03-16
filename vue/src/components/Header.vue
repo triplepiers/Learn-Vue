@@ -5,15 +5,15 @@
     <div class="list">
         <el-dropdown>
             <span class="el-dropdown-link">
-            张三
+            {{ cur_user?cur_user.username:''}}
             <el-icon class="el-icon--right">
                 <arrow-down />
             </el-icon>
             </span>
             <template #dropdown>
             <el-dropdown-menu>
-                <el-dropdown-item>个人信息</el-dropdown-item>
-                <el-dropdown-item @click="this.$router.push('/login')">退出系统</el-dropdown-item>
+                <el-dropdown-item @click="this.$router.push('/me')">个人信息</el-dropdown-item>
+                <el-dropdown-item @click="handleLogout">退出系统</el-dropdown-item>
             </el-dropdown-menu>
             </template>
         </el-dropdown>
@@ -28,6 +28,17 @@ export default {
     name: 'Header',
     components: {
         ArrowDown
+    },
+    methods: {
+        handleLogout() {
+            sessionStorage.removeItem('user')
+            this.$router.replace('/login')
+        }
+    },
+    computed: {
+        cur_user() {
+            return JSON.parse(sessionStorage.getItem('user'))
+        }
     }
 }
 </script>

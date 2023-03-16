@@ -65,7 +65,7 @@ export default {
         handleLogin() {
             this.$refs['form'].validate((valid) => {
                 if (valid) {
-                    request.post("/api/user/login", this.form)
+                    request.post("/user/login", this.form)
                     .then(
                         res => {
                             if(res.status == 500) {
@@ -73,6 +73,7 @@ export default {
                                     type: "success",
                                     message: "登录成功"
                                 })
+                                sessionStorage.setItem('user', JSON.stringify(res.data.user))
                                 this.form = {}
                                 this.$router.push('/')
                             } else {

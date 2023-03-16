@@ -3,8 +3,8 @@
     <el-menu
         style="min-height: calc(100vh - 50px);"
         default-active="user"
+        router
         class="el-menu-vertical-demo"
-        default-openeds="1"
     >
       <el-sub-menu index="1">
         <template #title>

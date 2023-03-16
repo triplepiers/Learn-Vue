@@ -73,10 +73,14 @@ def update_info():
     session = sessionmaker(bind=db)()
     session.query(User).filter(User.id == data['id']).update(data)
     session.commit()
+    res = session.query(User).filter(User.id == data['id']).one()
     session.close()
 
     return jsonify({
-        "status": 500
+        "status": 500,
+        "data": {
+            "user": res.to_json()
+        }
     })
 
 
@@ -100,17 +104,19 @@ def login():
 
     session = sessionmaker(bind=db)()
     res = session.query(User).filter(User.username == data['username']).filter(User.password == data['password']).all()
-    session.commit()
     session.close()
 
     if len(res) > 0:
-        status = 500
+        return jsonify({
+            "status": 500,
+            "data": {
+                "user": res[0].to_json()
+            }
+        })
     else:
-        status = 501
-
-    return jsonify({
-        "status": status
-    })
+        return jsonify({
+            "status": 501
+        })
 
 
 # 用户注册
@@ -121,15 +127,19 @@ def reg():
 
     res = session.query(User).filter(User.username == data['username']).all()
     if len(res) > 0:
-        status = 501
+        session.close()
+        return jsonify({
+            "status": 501
+        })
     else:
-        status = 500
         neo_usr = User(username=data['username'], password=data['password'])
         session.add(neo_usr)
         session.commit()
-
-    session.close()
-
-    return jsonify({
-        "status": status
-    })
+        info = session.query(User).filter(User.username==data['username']).all()
+        session.close()
+        return jsonify({
+            "status": 500,
+            "data": {
+                "user": info[0].to_json()
+            }
+        })
