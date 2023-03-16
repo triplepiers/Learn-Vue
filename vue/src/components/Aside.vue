@@ -13,9 +13,9 @@
         </template>
           <el-menu-item index="user">用户管理</el-menu-item>
       </el-sub-menu>
-      <el-menu-item index="data">
+      <el-menu-item index="book">
         <el-icon><icon-menu /></el-icon>
-        数据管理
+        书籍管理
       </el-menu-item>
     </el-menu>
   </div>

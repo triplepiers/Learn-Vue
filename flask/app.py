@@ -3,6 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from flask_cors import CORS
 from src.database import db
 from src.user import user
+from src.book import book
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
@@ -11,6 +12,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 
 app.register_blueprint(user, url_prefix='/user')
+app.register_blueprint(book, url_prefix='/book')
 
 
 @app.route('/')
