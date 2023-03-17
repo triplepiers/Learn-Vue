@@ -19,8 +19,6 @@ app.register_blueprint(file, url_prefix='/file')
 
 @app.route('/')
 def hello_world():  # put application's code here
-    db_session = sessionmaker(bind=db)()
-    db_session.close()
     return 'Hello World!'
 
 

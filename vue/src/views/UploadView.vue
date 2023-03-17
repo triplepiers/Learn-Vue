@@ -32,17 +32,15 @@ export default {
     },
     methods: {
         handleUpload(params) {
-            // console.log(params.file)
             var formData = new FormData();
             formData.append("file", params.file); 
-            console.log(formData.get("file"))
             request.post('/file/upload', formData)
             .then(
                 res => {
-                    console.log('ok')
+                    // console.log(res.data)
                 },
                 err => {
-                    console.log(err.message)
+                    // console.log(err.message)
                 }
             )
         }

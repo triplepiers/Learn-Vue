@@ -40,10 +40,11 @@ class Book(Base):
     price = Column(DECIMAL(10,2))
     author = Column(String(255))
     create_time = Column(DATETIME)
+    cover = Column(String(255))
 
     @staticmethod
     def keys():
-        return ['id', 'name', 'price', 'author', 'create_time']
+        return ['id', 'name', 'price', 'author', 'create_time', 'cover']
 
 
     def to_json(self):
@@ -52,5 +53,6 @@ class Book(Base):
             'name': self.name,
             'price': self.price,
             'author': self.author,
-            'create_time': str(self.create_time)[0:10] if self.create_time else self.create_time
+            'create_time': str(self.create_time)[0:10] if self.create_time else self.create_time,
+            'cover': self.cover
         }

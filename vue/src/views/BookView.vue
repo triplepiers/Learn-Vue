@@ -15,6 +15,15 @@
       <el-table-column prop="price" label="价格" sortable/>
       <el-table-column prop="author" label="作者" />
       <el-table-column prop="create_time" label="创建时间" sortable/>
+      <el-table-column label="封面">
+        <template #default="scope">
+          <el-image
+            style="width: 100px; height: 100px"
+            :src="scope.row.cover"
+            fit="cover"
+          />
+        </template>
+      </el-table-column>
       <el-table-column fixed="right" label="操作" width="120">
       <template #default="scope">
         <el-button link type="primary" size="small" @click="handleEdit(scope.row)">编辑</el-button>
@@ -64,7 +73,22 @@
           >
           </el-date-picker>
         </el-form-item>
+        <el-form-item label="封面">
+          <el-upload
+            action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+            :on-preview="handlePreview"
+            :on-remove="handleRemove"
+            :before-remove="beforeRemove"
+            :limit="1"
+            :on-exceed="handleExceed"
+            :http-request="handleUpload"
+            ref="myUpload"
+          >
+            <el-button type="primary" style="width:100%;">点击上传</el-button>
+          </el-upload>
+        </el-form-item>
       </el-form>
+        
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">取消</el-button>
@@ -123,6 +147,7 @@ export default {
         }
         
         this.form = {}
+        this.$refs.myUpload.clearFiles()
         this.dialogVisible = false
     },
     loadData() { // 加载当前页数据
@@ -165,7 +190,23 @@ export default {
         }
         this.loadData()
       })
-    }
+    },
+    handleUpload(params) {
+            var formData = new FormData();
+            formData.append("file", params.file); 
+            if(this.form.id) {
+              formData.append("id", this.form.id)
+            }
+            request.post('/file/cover', formData)
+            .then(
+                res => {
+                    this.form.cover = res.data
+                },
+                err => {
+                    // console.log(err.message)
+                }
+            )
+        }
   },
   created() { // 页面加载时获取数据
     this.loadData()

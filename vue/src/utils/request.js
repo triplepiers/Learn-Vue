@@ -11,7 +11,7 @@ const request = axios.create({
 // 可以自请求发送前对请求做一些处理
 // 比如统一加token，对请求参数统一加密
 request.interceptors.request.use(config => {
-    if(config.url === '/file/upload') {
+    if(config.url === '/file/upload' || config.url === "/file/cover") {
         // 上传 file 时需要特殊处理类型和后端跨域
         config.headers['Content-Type'] = 'multipart/form-data; boundary=<calculated when request is sent>'
         config.withCredentials = true; 
