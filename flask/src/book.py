@@ -49,7 +49,7 @@ def get_all():
         tableData = []
         for item in res:
             tableData.append(item.to_json())
-            print(item.create_time)
+            # print(item.create_time)
         res = session.query(Book).all()
 
     total = len(res)

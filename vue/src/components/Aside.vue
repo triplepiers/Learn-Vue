@@ -8,27 +8,36 @@
     >
       <el-sub-menu index="1">
         <template #title>
-          <el-icon><setting /></el-icon>
+          <el-icon><Tools /></el-icon>
           <span>系统管理</span>
         </template>
-          <el-menu-item index="user">用户管理</el-menu-item>
+          <el-menu-item index="user">
+            <el-icon><User /></el-icon>
+            用户管理
+          </el-menu-item>
       </el-sub-menu>
       <el-menu-item index="book">
         <el-icon><icon-menu /></el-icon>
         书籍管理
+      </el-menu-item>
+      <el-menu-item index="upload">
+        <el-icon><UploadFilled /></el-icon>
+        文件上传
       </el-menu-item>
     </el-menu>
   </div>
 </template>
 
 <script>
-import { Setting, Menu as IconMenu } from '@element-plus/icons-vue'
+import { Tools, User, Menu as IconMenu, UploadFilled } from '@element-plus/icons-vue'
 
 export default {
     name: 'Aside',
     components: {
-      Setting,
-      IconMenu
+      Tools,
+      User,
+      IconMenu,
+      UploadFilled
     }
 }
 </script>

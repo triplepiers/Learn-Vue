@@ -11,8 +11,14 @@ const request = axios.create({
 // 可以自请求发送前对请求做一些处理
 // 比如统一加token，对请求参数统一加密
 request.interceptors.request.use(config => {
-    config.headers['Content-Type'] = 'application/json;charset=utf-8';
-  
+    if(config.url === '/file/upload') {
+        // 上传 file 时需要特殊处理类型和后端跨域
+        config.headers['Content-Type'] = 'multipart/form-data; boundary=<calculated when request is sent>'
+        config.withCredentials = true; 
+    } else {
+        config.headers['Content-Type'] = 'application/json;charset=utf-8';
+    }
+    
     // config.headers['token'] = user.token;  // 设置请求头
 
     // 拦截 通过 SessionStorage 中是否存在 user 对象 判断是否已经登录

@@ -20,6 +20,11 @@ const routes = [
         path: '/book',
         name: 'book',
         component: () => import('@/views/BookView')
+      },
+      {
+        path: '/upload',
+        name: 'upload',
+        component: () => import('@/views/UploadView')
       }
     ]
   },
