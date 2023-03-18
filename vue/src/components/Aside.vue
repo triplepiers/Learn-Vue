@@ -6,7 +6,7 @@
         router
         class="el-menu-vertical-demo"
     >
-      <el-sub-menu index="1">
+      <el-sub-menu index="1" v-if="role === 2">
         <template #title>
           <el-icon><Tools /></el-icon>
           <span>系统管理</span>
@@ -43,6 +43,11 @@ export default {
       DocumentAdd,
       UploadFilled,
       BrushFilled
+    },
+    computed: {
+      role() {
+        return JSON.parse(sessionStorage.getItem('user')).role
+      }
     }
 }
 </script>

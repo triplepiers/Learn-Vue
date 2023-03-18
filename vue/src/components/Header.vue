@@ -5,7 +5,7 @@
     <div class="list">
         <el-dropdown>
             <span class="el-dropdown-link">
-            {{ cur_user?cur_user.username:''}}
+            {{ cur_user ? u_name : ''}}
             <el-icon class="el-icon--right">
                 <arrow-down />
             </el-icon>
@@ -38,6 +38,10 @@ export default {
     computed: {
         cur_user() {
             return JSON.parse(sessionStorage.getItem('user'))
+        },
+        u_name() {
+            if(this.cur_user.role === 1) return '普通用户 - ' + this.cur_user.username
+            else                         return '管理员 - ' + this.cur_user.username
         }
     }
 }
@@ -60,7 +64,7 @@ export default {
     flex: 1;
 }
 .header .list {
-    width: 100px;
+    width: 140px;
     display: flex;
     align-items: center;
 }

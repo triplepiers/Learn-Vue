@@ -13,6 +13,12 @@
       <el-table-column prop="id" label="ID" sortable/>
       <el-table-column prop="username" label="用户名" />
       <el-table-column prop="password" label="密码" />
+      <el-table-column label="角色">
+        <template #default="scope">
+          <span v-if="scope.row.role === 1">普通用户</span>
+          <span v-if="scope.row.role === 2">管理员</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="nick_name" label="昵称" />
       <el-table-column prop="age" label="年龄" />
       <el-table-column prop="sex" label="性别" />

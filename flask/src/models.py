@@ -14,10 +14,11 @@ class User(Base):
     age = Column(Integer)
     sex = Column(String(255))
     address = Column(String(255))
+    role = Column(Integer, default=1)
 
     @staticmethod
     def keys():
-        return ['id', 'username', 'password', 'nick_name', 'age', 'sex', 'address']
+        return ['id', 'username', 'password', 'nick_name', 'age', 'sex', 'address', 'role']
 
 
     def to_json(self):
@@ -28,7 +29,8 @@ class User(Base):
             'nick_name': self.nick_name,
             'age': self.age,
             'sex': self.sex,
-            'address': self.address
+            'address': self.address,
+            'role': self.role
         }
 
 
