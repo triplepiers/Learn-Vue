@@ -1,10 +1,9 @@
 from flask import Flask
-from sqlalchemy.orm import sessionmaker
 from flask_cors import CORS
-from src.database import db
 from src.user import user
 from src.book import book
 from src.file import file
+from src.text import text
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
@@ -15,6 +14,7 @@ app.config['SQLALCHEMY_ECHO'] = True
 app.register_blueprint(user, url_prefix='/user')
 app.register_blueprint(book, url_prefix='/book')
 app.register_blueprint(file, url_prefix='/file')
+app.register_blueprint(text, url_prefix="/text")
 
 
 @app.route('/')

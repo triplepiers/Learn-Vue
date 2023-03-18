@@ -15,29 +15,34 @@
             <el-icon><User /></el-icon>
             用户管理
           </el-menu-item>
+          <el-menu-item index="book">
+            <el-icon><DocumentAdd /></el-icon>
+            书籍管理
+          </el-menu-item>
       </el-sub-menu>
-      <el-menu-item index="book">
-        <el-icon><icon-menu /></el-icon>
-        书籍管理
-      </el-menu-item>
       <el-menu-item index="upload">
         <el-icon><UploadFilled /></el-icon>
         文件上传
+      </el-menu-item>
+      <el-menu-item index="text">
+        <el-icon><BrushFilled /></el-icon>
+        富文本
       </el-menu-item>
     </el-menu>
   </div>
 </template>
 
 <script>
-import { Tools, User, Menu as IconMenu, UploadFilled } from '@element-plus/icons-vue'
+import { Tools, User, DocumentAdd, UploadFilled, BrushFilled } from '@element-plus/icons-vue'
 
 export default {
     name: 'Aside',
     components: {
       Tools,
       User,
-      IconMenu,
-      UploadFilled
+      DocumentAdd,
+      UploadFilled,
+      BrushFilled
     }
 }
 </script>

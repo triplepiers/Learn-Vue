@@ -1,4 +1,4 @@
-from sqlalchemy import Integer, Column, String, DATETIME, DECIMAL
+from sqlalchemy import Integer, Column, String, DATETIME, DECIMAL, TEXT
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
@@ -56,3 +56,15 @@ class Book(Base):
             'create_time': str(self.create_time)[0:10] if self.create_time else self.create_time,
             'cover': self.cover
         }
+
+
+class Txt(Base):
+    __tablename__ = "text"
+
+    id = Column(Integer, primary_key=True)
+    title = Column(String(255))
+    content = Column(TEXT)
+    author = Column(String(255))
+    create_time = Column(DATETIME)
+
+

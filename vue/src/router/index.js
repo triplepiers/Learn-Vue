@@ -17,14 +17,19 @@ const routes = [
         component: () => import('@/views/PersonaView')
       },
       {
-        path: '/book',
+        path: 'book',
         name: 'book',
         component: () => import('@/views/BookView')
       },
       {
-        path: '/upload',
+        path: 'upload',
         name: 'upload',
         component: () => import('@/views/UploadView')
+      },
+      {
+        path: 'text',
+        name: 'text',
+        component: () => import('@/views/RichTextView')
       }
     ]
   },

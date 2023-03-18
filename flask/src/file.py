@@ -31,11 +31,11 @@ def cover():
     session = sessionmaker(bind=db)()
 
     if id: # 已经存在记录
-        print(id)
+        # print(id)
         res = session.query(Book).filter(Book.id == int(id)).one()
         path = res.cover
         if path:
-            os.remove(FILE_DIR + path)
+            os.remove(FILE_DIR + path[12:])
 
     neo_path = str(uuid4()) + os.path.splitext(file.filename)[-1]
     file.save(FILE_DIR + neo_path)
@@ -43,5 +43,5 @@ def cover():
 
     return jsonify({
         "status": 500,
-        "data":  'http://localhost:8000/static/' + neo_path
+        "data":  '/api/static/' + neo_path
     })
