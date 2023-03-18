@@ -53,7 +53,7 @@
     <!-- 新增用户弹窗 -->
     <el-dialog
       v-model="dialogVisible"
-      title="新增用户"
+      title="新增书籍"
       width="500px"
       :before-close="handleClose"
     >

@@ -67,4 +67,16 @@ class Txt(Base):
     author = Column(String(255))
     create_time = Column(DATETIME)
 
+    @staticmethod
+    def keys():
+        return ['id', 'title', 'content', 'author', 'create_time']
 
+
+    def to_json(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'content': self.content,
+            'author': self.author,
+            'create_time': self.create_time.strftime("%m/%d/%Y, %H:%M:%S")
+        }

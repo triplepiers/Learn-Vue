@@ -74,14 +74,10 @@ def update_info():
     session = sessionmaker(bind=db)()
     session.query(Book).filter(Book.id == data['id']).update(data)
     session.commit()
-    res = session.query(Book).filter(Book.id == data['id']).one()
     session.close()
 
     return jsonify({
-        "status": 500,
-        "data": {
-            "user": res.to_json()
-        }
+        "status": 500
     })
 
 
