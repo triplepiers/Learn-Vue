@@ -75,7 +75,7 @@ export default {
                                 })
                                 sessionStorage.setItem('user', JSON.stringify(res.data.user))
                                 this.form = {}
-                                this.$router.push('/')
+                                this.$router.push('/me')
                             } else {
                                 this.form.password = ""
                                 this.$message({

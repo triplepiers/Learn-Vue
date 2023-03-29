@@ -4,7 +4,7 @@ const routes = [
   {
     path: '/',
     component: () => import('@/layout/LayoutView'),
-    redirect: '/upload',
+    redirect: '/login',
     children: [
       {
         path: 'user',
